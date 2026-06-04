@@ -4,7 +4,7 @@ Aplicación web para crear y gestionar listas de reproducción de música, desar
 
 ## Demo
 
-[Ver aplicación desplegada](https://TU-URL.vercel.app)
+[Ver aplicación desplegada](https://music-playlist-app-git-main-nicolasgc5s-projects.vercel.app/login)
 
 ## Credenciales de acceso
 
@@ -23,6 +23,7 @@ Aplicación web para crear y gestionar listas de reproducción de música, desar
 
 ## Estructura del proyecto
 
+```
 src/app/
 ├── core/
 │   ├── services/
@@ -36,12 +37,13 @@ src/app/
 │       ├── playlist.model.ts      # Modelo de playlist
 │       └── song.model.ts          # Modelo de canción
 └── features/
-├── auth/
-│   └── login/                 # Pantalla de login
-└── playlists/
-├── playlist-list/         # Lista de playlists
-├── playlist-detail/       # Detalle y reproducción
-└── add-song/              # Búsqueda de canciones
+    ├── auth/
+    │   └── login/                 # Pantalla de login
+    └── playlists/
+        ├── playlist-list/         # Lista de playlists
+        ├── playlist-detail/       # Detalle y reproducción
+        └── add-song/              # Búsqueda de canciones
+```
 
 ## Características
 
@@ -63,19 +65,15 @@ src/app/
 ## Instalación local
 
 ```bash
-# Clonar el repositorio
 git clone https://github.com/TuUsuario/music-playlist-app.git
 
-# Entrar a la carpeta
 cd music-playlist-app/music-app
 
-# Instalar dependencias
 npm install
 
-# Correr en desarrollo
 ng serve
 ```
 
 ## Autor
 
-Tu Nombre
+Nicolas Gonzalez
