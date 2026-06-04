@@ -8,13 +8,13 @@ import { Song } from '../../shared/models/song.model';
 })
 export class DeezerService {
 
-  private readonly PROXY = 'https://thingproxy.freeboard.io/fetch/';
+  private readonly PROXY = 'https://corsproxy.io/?';
   private readonly API = 'https://api.deezer.com';
 
   constructor(private http: HttpClient) { }
 
   searchSongs(query: string): Observable<Song[]> {
-    const url = `${this.PROXY}${this.API}/search?q=${encodeURIComponent(query)}`;
+    const url = `${this.PROXY}${encodeURIComponent(`${this.API}/search?q=${query}`)}`;
     return this.http.get<any>(url).pipe(
       map(response => response.data.map((item: any) => ({
         id: item.id,
