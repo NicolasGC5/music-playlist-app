@@ -1,59 +1,81 @@
-# MusicApp
+# Music Playlist App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
+Aplicación web para crear y gestionar listas de reproducción de música, desarrollada con Angular.
 
-## Development server
+## Demo
 
-To start a local development server, run:
+[Ver aplicación desplegada](https://TU-URL.vercel.app)
+
+## Credenciales de acceso
+
+- **Usuario:** admin
+- **Contraseña:** 1234
+
+## Tecnologías utilizadas
+
+- Angular 19
+- Angular Material
+- TypeScript
+- SCSS
+- Deezer API
+- Vercel (despliegue)
+- Vercel Serverless Functions (proxy CORS)
+
+## Estructura del proyecto
+
+src/app/
+├── core/
+│   ├── services/
+│   │   ├── auth.service.ts        # Autenticación
+│   │   ├── playlist.service.ts    # Gestión de playlists
+│   │   └── deezer.service.ts      # Integración con Deezer API
+│   └── guards/
+│       └── auth.guard.ts          # Protección de rutas
+├── shared/
+│   └── models/
+│       ├── playlist.model.ts      # Modelo de playlist
+│       └── song.model.ts          # Modelo de canción
+└── features/
+├── auth/
+│   └── login/                 # Pantalla de login
+└── playlists/
+├── playlist-list/         # Lista de playlists
+├── playlist-detail/       # Detalle y reproducción
+└── add-song/              # Búsqueda de canciones
+
+## Características
+
+- Inicio y cierre de sesión con validaciones
+- Crear y eliminar playlists
+- Buscar canciones usando la API de Deezer
+- Agregar y eliminar canciones de una playlist
+- Reproducir y pausar canciones con preview de 30 segundos
+- Datos persistidos en LocalStorage
+- Diseño inspirado en Spotify
+
+## Decisiones de diseño
+
+- **Standalone Components**: se usaron componentes standalone de Angular para mejor modularización y reutilización
+- **LocalStorage**: se usó para persistir las playlists sin necesidad de un backend
+- **Proxy serverless**: se creó una función serverless en Vercel para evitar problemas de CORS con la API de Deezer
+- **Angular Material**: se usó para los componentes de UI manteniendo consistencia visual
+
+## Instalación local
 
 ```bash
+# Clonar el repositorio
+git clone https://github.com/TuUsuario/music-playlist-app.git
+
+# Entrar a la carpeta
+cd music-playlist-app/music-app
+
+# Instalar dependencias
+npm install
+
+# Correr en desarrollo
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Autor
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Tu Nombre
