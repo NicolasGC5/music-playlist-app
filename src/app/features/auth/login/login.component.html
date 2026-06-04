@@ -1,0 +1,49 @@
+<div class="login-container">
+    <div class="login-card">
+
+        <div class="login-header">
+            <mat-icon class="music-icon">library_music</mat-icon>
+            <h1>Music App</h1>
+            <p>Inicia sesión para continuar</p>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="username" placeholder="Ingresa tu usuario" />
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                    El usuario es requerido
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('username')?.hasError('minlength')">
+                    Mínimo 3 caracteres
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" />
+                <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                    La contraseña es requerida
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+                    Mínimo 4 caracteres
+                </mat-error>
+            </mat-form-field>
+
+            <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+                Iniciar sesión
+            </button>
+
+        </form>
+
+        <p class="hint">Usuario: <strong>admin</strong> · Contraseña: <strong>1234</strong></p>
+
+    </div>
+</div>

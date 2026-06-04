@@ -1,0 +1,62 @@
+<div class="playlist-container">
+
+    <div class="header">
+        <div class="header-left">
+            <mat-icon class="music-icon">library_music</mat-icon>
+            <h1>Music App</h1>
+        </div>
+        <div class="header-right">
+            <span class="username">Hola, {{ username }}</span>
+            <button mat-icon-button (click)="logout()" title="Cerrar sesión">
+                <mat-icon>logout</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section-header">
+            <h2>Mis playlists</h2>
+            <button mat-raised-button (click)="showCreateForm = !showCreateForm">
+                <mat-icon>add</mat-icon>
+                Nueva playlist
+            </button>
+        </div>
+
+        <div class="create-form" *ngIf="showCreateForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre de la playlist</mat-label>
+                <input matInput [(ngModel)]="newPlaylistName" placeholder="Mi playlist" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input matInput [(ngModel)]="newPlaylistDescription" placeholder="Descripción opcional" />
+            </mat-form-field>
+            <div class="form-actions">
+                <button mat-button (click)="showCreateForm = false">Cancelar</button>
+                <button mat-raised-button color="primary" (click)="createPlaylist()">
+                    Crear
+                </button>
+            </div>
+        </div>
+
+        <div class="playlists-grid">
+            <div class="playlist-card" *ngFor="let playlist of playlists" (click)="goToPlaylist(playlist.id)">
+                <div class="card-image">
+                    <img [src]="playlist.cover" [alt]="playlist.name" />
+                    <div class="card-overlay">
+                        <mat-icon>play_circle</mat-icon>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <h3>{{ playlist.name }}</h3>
+                    <p>{{ playlist.songs.length }} canciones</p>
+                </div>
+                <button mat-icon-button class="delete-btn" (click)="deletePlaylist(playlist.id, $event)"
+                    title="Eliminar playlist">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

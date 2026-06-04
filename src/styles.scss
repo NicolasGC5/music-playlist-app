@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Angular Material dark theme overrides */
+.mat-mdc-form-field {
+
+  .mdc-text-field--outlined .mdc-notched-outline__leading,
+  .mdc-text-field--outlined .mdc-notched-outline__notch,
+  .mdc-text-field--outlined .mdc-notched-outline__trailing {
+    border-color: #535353 !important;
+  }
+
+  .mdc-text-field--outlined:hover .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:hover .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:hover .mdc-notched-outline__trailing {
+    border-color: #ffffff !important;
+  }
+
+  input {
+    color: #ffffff !important;
+    caret-color: #1db954 !important;
+  }
+
+  .mat-mdc-floating-label {
+    color: #b3b3b3 !important;
+  }
+
+  .mat-mdc-form-field-focus-overlay {
+    background-color: transparent !important;
+  }
+}
