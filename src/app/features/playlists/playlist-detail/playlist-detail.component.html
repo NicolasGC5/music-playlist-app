@@ -69,13 +69,16 @@
             <div class="song-row" *ngFor="let song of playlist?.songs" [class.active]="currentSong?.id === song.id"
                 (click)="playSong(song)">
                 <div class="song-play-icon">
-                    <mat-icon *ngIf="currentSong?.id !== song.id">music_note</mat-icon>
-                    <mat-icon *ngIf="currentSong?.id === song.id && isPlaying" class="playing">
-                        pause
-                    </mat-icon>
-                    <mat-icon *ngIf="currentSong?.id === song.id && !isPlaying">
-                        play_arrow
-                    </mat-icon>
+                    <ng-container *ngIf="currentSong?.id === song.id; else defaultIcon">
+                        <div class="equalizer" [class.paused]="!isPlaying">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </ng-container>
+                    <ng-template #defaultIcon>
+                        <mat-icon>music_note</mat-icon>
+                    </ng-template>
                 </div>
                 <img [src]="song.cover" [alt]="song.title" class="song-cover" />
                 <div class="song-info">
