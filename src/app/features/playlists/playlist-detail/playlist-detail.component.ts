@@ -100,6 +100,11 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
   }
 
   playSong(song: Song): void {
+    if (!song?.preview || song.preview.trim() === '') {
+      alert('Esta canción no tiene preview disponible');
+      return;
+    }
+
     if (this.currentSong?.id === song.id) {
       if (this.isPlaying) {
         this.audio.pause();
@@ -113,12 +118,24 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     } else {
       this.audio.pause();
       this.stopProgress();
-      this.currentSong = song;
       this.currentTime = 0;
-      this.audio.src = song.preview;
-      this.audio.play();
-      this.isPlaying = true;
-      this.startProgress();
+      this.currentSong = song;
+
+      this.audio = new Audio(song.preview);
+      this.audio.addEventListener('ended', () => {
+        this.isPlaying = false;
+        this.currentTime = 0;
+        this.stopProgress();
+      });
+
+      this.audio.play().then(() => {
+        this.isPlaying = true;
+        this.startProgress();
+      }).catch(() => {
+        this.isPlaying = false;
+        this.stopProgress();
+        alert('No se pudo reproducir esta canción');
+      });
     }
   }
 
@@ -134,6 +151,12 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
 
   previewSong(song: Song, event: Event): void {
     event.stopPropagation();
+
+    if (!song.preview) {
+      console.warn('Esta canción no tiene preview disponible');
+      return;
+    }
+
     if (this.currentSong?.id === song.id) {
       if (this.isPlaying) {
         this.audio.pause();
@@ -150,7 +173,11 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
       this.currentSong = song;
       this.currentTime = 0;
       this.audio.src = song.preview;
-      this.audio.play();
+      this.audio.load();
+      this.audio.play().catch(() => {
+        this.isPlaying = false;
+        this.stopProgress();
+      });
       this.isPlaying = true;
       this.startProgress();
     }
