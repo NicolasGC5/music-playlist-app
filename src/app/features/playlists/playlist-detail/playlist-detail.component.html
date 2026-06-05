@@ -83,6 +83,12 @@
                         {{ song.title }}
                     </span>
                     <span class="song-artist">{{ song.artist }}</span>
+                    <div class="progress-container" *ngIf="currentSong?.id === song.id">
+                        <div class="progress-bar">
+                            <div class="progress-fill" [style.width.%]="(currentTime / duration) * 100"></div>
+                        </div>
+                        <span class="progress-time">{{ formatTime(currentTime) }} / {{ formatTime(duration) }}</span>
+                    </div>
                 </div>
                 <span class="song-album">{{ song.album }}</span>
                 <span class="song-duration">{{ formatDuration(song.duration) }}</span>

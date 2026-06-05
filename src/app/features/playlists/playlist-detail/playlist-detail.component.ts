@@ -37,6 +37,9 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
   isPlaying = false;
   audio = new Audio();
   showSearch = false;
+  currentTime = 0;
+  duration = 30;
+  progressInterval: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +62,7 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.audio.pause();
     this.audio.src = '';
+    this.stopProgress();
   }
 
   searchSongs(): void {
@@ -100,16 +104,21 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
       if (this.isPlaying) {
         this.audio.pause();
         this.isPlaying = false;
+        this.stopProgress();
       } else {
         this.audio.play();
         this.isPlaying = true;
+        this.startProgress();
       }
     } else {
       this.audio.pause();
+      this.stopProgress();
       this.currentSong = song;
+      this.currentTime = 0;
       this.audio.src = song.preview;
       this.audio.play();
       this.isPlaying = true;
+      this.startProgress();
     }
   }
 
@@ -129,16 +138,21 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
       if (this.isPlaying) {
         this.audio.pause();
         this.isPlaying = false;
+        this.stopProgress();
       } else {
         this.audio.play();
         this.isPlaying = true;
+        this.startProgress();
       }
     } else {
       this.audio.pause();
+      this.stopProgress();
       this.currentSong = song;
+      this.currentTime = 0;
       this.audio.src = song.preview;
       this.audio.play();
       this.isPlaying = true;
+      this.startProgress();
     }
   }
 
@@ -148,5 +162,30 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
 
   goBack(): void {
     this.router.navigate(['/playlists']);
+  }
+
+  startProgress(): void {
+    this.progressInterval = setInterval(() => {
+      if (this.currentTime < this.duration) {
+        this.currentTime++;
+      } else {
+        this.stopProgress();
+        this.isPlaying = false;
+        this.currentTime = 0;
+      }
+    }, 1000);
+  }
+
+  stopProgress(): void {
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval);
+      this.progressInterval = null;
+    }
+  }
+
+  formatTime(seconds: number): string {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, '0')}`;
   }
 }
