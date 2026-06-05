@@ -46,10 +46,16 @@
                 <div class="song-row result-row" *ngFor="let song of searchResults">
                     <img [src]="song.cover" [alt]="song.title" class="song-cover" />
                     <div class="song-info">
-                        <span class="song-title">{{ song.title }}</span>
+                        <span class="song-title" [class.playing]="isPreviewPlaying(song.id)">
+                            {{ song.title }}
+                        </span>
                         <span class="song-artist">{{ song.artist }}</span>
                     </div>
                     <span class="song-duration">{{ formatDuration(song.duration) }}</span>
+                    <button mat-icon-button (click)="previewSong(song, $event)"
+                        [title]="isPreviewPlaying(song.id) ? 'Pausar' : 'Escuchar preview'">
+                        <mat-icon>{{ isPreviewPlaying(song.id) ? 'pause' : 'play_arrow' }}</mat-icon>
+                    </button>
                     <button mat-icon-button (click)="addSong(song)" [disabled]="isSongInPlaylist(song.id)"
                         [title]="isSongInPlaylist(song.id) ? 'Ya está en la playlist' : 'Agregar'">
                         <mat-icon>{{ isSongInPlaylist(song.id) ? 'check' : 'add' }}</mat-icon>

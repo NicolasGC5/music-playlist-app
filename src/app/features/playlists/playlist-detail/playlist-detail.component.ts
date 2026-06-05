@@ -123,6 +123,29 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     return !!this.playlist?.songs.find(s => s.id === songId);
   }
 
+  previewSong(song: Song, event: Event): void {
+    event.stopPropagation();
+    if (this.currentSong?.id === song.id) {
+      if (this.isPlaying) {
+        this.audio.pause();
+        this.isPlaying = false;
+      } else {
+        this.audio.play();
+        this.isPlaying = true;
+      }
+    } else {
+      this.audio.pause();
+      this.currentSong = song;
+      this.audio.src = song.preview;
+      this.audio.play();
+      this.isPlaying = true;
+    }
+  }
+
+  isPreviewPlaying(songId: number): boolean {
+    return this.currentSong?.id === songId && this.isPlaying;
+  }
+
   goBack(): void {
     this.router.navigate(['/playlists']);
   }
